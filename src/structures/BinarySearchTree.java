@@ -2,10 +2,16 @@ package structures;
 
 import models.Book;
 import org.w3c.dom.Node;
+import java.util.List;
+
+import java.util.ArrayList;
 
 public class BinarySearchTree {
-    private Node root;
 
+    /*
+    Book book;
+    private Node root;
+    */
     private class Node {
         Book book;
         Node left, right;
@@ -16,39 +22,55 @@ public class BinarySearchTree {
         }
     }
 
+    private Node root;
+
     public void add(Book book) {
         root = addRecursive(root, book);
     }
 
-    private Node addRecursive(Node current, Book book) {
-        if (current == null) {
+    private Node addRecursive(Node node, Book book) {
+        if (node == null) {
             return new Node(book);
         }
 
-        if (book.getId().compareTo(current.book.getId()) < 0) {
-            current.left = addRecursive(current.left, book);
-        } else if (book.getId().compareTo(current.book.getId()) > 0) {
-            current.right = addRecursive(current.right, book);
+        if (book.getId().compareTo(node.book.getId()) < 0) {
+            node.left = addRecursive(node.left, book);
+        } else if (book.getId().compareTo(node.book.getId()) > 0) {
+            node.right = addRecursive(node.right, book);
         }
 
-        return current;
+        return node;
     }
 
     public Book findById(String id) {
         return findRecursive(root, id);
     }
 
-    private Book findRecursive(Node current, String id) {
-        if (current == null) {
+    private Book findRecursive(Node node, String id) {
+        if (node == null) {
             return null;
         }
 
-        if (id.equals(current.book.getId())) {
-            return current.book;
+        if (id.equals(node.book.getId())) {
+            return node.book;
         }
 
-        return id.compareTo(current.book.getId()) < 0
-                ? findRecursive(current.left, id)
-                : findRecursive(current.right, id);
+        return id.compareTo(node.book.getId()) < 0
+                ? findRecursive(node.left, id)
+                : findRecursive(node.right, id);
+    }
+
+    public List<Book> getAllBooks() {
+        List<Book> books = new ArrayList<>();
+        inOrderTraversal(root, books);
+        return books;
+    }
+
+    private void inOrderTraversal(Node node, List<Book> books) {
+        if (node != null) {
+            inOrderTraversal(node.left, books);
+            books.add(node.book);
+            inOrderTraversal(node.right, books);
+        }
     }
 }

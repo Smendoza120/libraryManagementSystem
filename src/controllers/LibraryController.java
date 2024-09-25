@@ -5,6 +5,8 @@ import models.User;
 import services.BookService;
 import services.UserService;
 
+import java.util.List;
+
 public class LibraryController {
     private BookService bookService;
     private UserService userService;
@@ -28,5 +30,13 @@ public class LibraryController {
 
     public User findUserById(String id) {
         return userService.findUserById(id);
+    }
+
+    public List<Book> searchBooks(String title, String author, String genre) {
+        return bookService.searchBooks(title, author, genre);
+    }
+
+    public List<Book> getAllBooks(){
+        return bookService.getAllBooks();
     }
 }
