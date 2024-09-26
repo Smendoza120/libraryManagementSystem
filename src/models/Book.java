@@ -6,12 +6,14 @@ public class Book {
     private String author;
     private String genre;
     private boolean isAvailable;
+    private Loan currentLoan;
 
     public Book(String title, String author, String genre) {
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.isAvailable = true;
+        this.currentLoan = null;
     }
 
     public String getId() {
@@ -38,8 +40,14 @@ public class Book {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public Loan getCurrentLoan() {
+        return currentLoan;
     }
+
+    public void setCurrentLoan(Loan loan) {
+        this.currentLoan = loan;
+        this.isAvailable = (loan == null);
+    }
+
 
 }

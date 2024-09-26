@@ -7,15 +7,20 @@ Libros
 - [X] Agregar genero del libro
 - [X] Buscar no solo por el id en los libros 
 - [X] Agregar la consulta de todos los libros
-- [] Realizar la logica de prestamo de libros en los libros
-- [] Realizar una lista de los libros prestados
-- [] Agregarle fechas de prestamos y de devolucion
+- [X] Mejorar el filtro, para que en el mismo lugar podamos buscar el libro sin necesidad de diligenciar mas datos
 
 Usuarios
-- [] Incluir el id de manera automatica para que no se repita en los usuarios
-- [] Buscar no solo por el id en usuarios
-- [] Agregar la consulta de todos los usuarios junto con los libros que tiene prestados
+- [X] Incluir el id de manera automatica para que no se repita en los usuarios
+- [X] Agregar tipo de documento y numero de documento
+- [X] Buscar no solo por el id en usuarios
+- [X] Agregar la consulta de todos los usuarios
+- [] Agregar listado de libros en prestamo
 - [] Realizar la logica de prestamo de libros en los usuarios
+
+Prestamos
+
+- [] Agregar filtro de los libros por el documento del usuario mas no por el ID
+- [] Agregar un listado de todos los libros prestados
 
 ## Visual
 

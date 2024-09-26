@@ -31,7 +31,19 @@ public class Main {
                     addUser();
                     break;
                 case 5:
+                    listAllUsers();
+                    break;
+                case 6:
                     findUser();
+                    break;
+                case 7:
+                    loanBook();
+                    break;
+                case 8:
+                    returnBook();
+                    break;
+                case 9:
+                    listUserLoans();
                     break;
                 case 0:
                     running = false;
@@ -50,7 +62,11 @@ public class Main {
         System.out.println("2. Buscar libro");
         System.out.println("3. Listar todos los libros");
         System.out.println("4. Agregar usuario");
-        System.out.println("5. Buscar usuario");
+        System.out.println("5. Listar todos los usuarios");
+        System.out.println("6. Buscar usuario");
+        System.out.println("7. Prestar un libro");
+        System.out.println("8. Devolver un libro");
+        System.out.println("9. Listar libros prestados por un usuario");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
     }
@@ -72,23 +88,19 @@ public class Main {
 
     /*Ese mejorara esta funcionalidad para que no solo busque por ID si no tambien por nombre*/
     private static void findBook() {
-        System.out.println("Ingrese el título del libro (dejar vacío si no desea buscar por título): ");
-        String title = scanner.nextLine();
+        System.out.println("Ingrese el título, autor o género del libro a buscar: ");
+        String query = scanner.nextLine().trim();
 
-        System.out.println("Ingrese el autor del libro (dejar vacío si no desea buscar por autor): ");
-        String author = scanner.nextLine();
+        List<Book> books = libraryController.searchBooks(query);
 
-        System.out.println("Ingrese el género del libro (dejar vacío si no desea buscar por género): ");
-        String genre = scanner.nextLine();
-
-        List<Book> foundBooks = libraryController.searchBooks(title, author, genre);
-        if (!foundBooks.isEmpty()) {
-            System.out.println("Libros encontrados:");
-            for (Book book : foundBooks) {
-                System.out.println("- " + book.getTitle() + " de " + book.getAuthor());
-            }
+        if (books.isEmpty()) {
+            System.out.println("No se encontraron libros que coincidan con el criterio.");
         } else {
-            System.out.println("No se encontraron libros que coincidan con los criterios de búsqueda.");
+            System.out.println("\n--- Resultados de la búsqueda ---");
+            for (Book book : books) {
+                System.out.println("ID: " + book.getId() + ", Título: " + book.getTitle() +
+                        ", Autor: " + book.getAuthor() + ", Género: " + book.getGenre());
+            }
         }
     }
 
@@ -107,26 +119,72 @@ public class Main {
     }
 
     private static void addUser() {
-        System.out.println("Ingrese el ID del usuario: ");
-        String id = scanner.nextLine();
-
         System.out.println("Ingrese el nombre del usuario: ");
         String name = scanner.nextLine();
 
-        User newUser = new User(id, name);
+        System.out.println("Ingrese el tipo de documento: ");
+        String documentType = scanner.nextLine();
+
+        System.out.println("Ingrese el número de documento: ");
+        String documentNumber = scanner.nextLine();
+
+        User newUser = new User(null, name, documentType, documentNumber);
         libraryController.addUser(newUser);
         System.out.println("Usuario agregado con exito");
     }
 
-    private static void findUser() {
-        System.out.println("Ingrese el ID del usuario a buscar: ");
-        String id = scanner.nextLine();
+    private static void listAllUsers() {
+        List<User> users = libraryController.getAllUsers();
 
-        User user = libraryController.findUserById(id);
+        if (users.isEmpty()) {
+            System.out.println("No hay usuarios registrados.");
+        } else {
+            System.out.println("\n--- Listado de Usuarios ---");
+            for (User user : users) {
+                System.out.println("ID: " + user.getId() + ", Nombre: " + user.getName() +
+                        ", Tipo de Documento: " + user.getDocumentType() +
+                        ", Número de Documento: " + user.getDocumentNumber());
+            }
+        }
+    }
+
+    private static void findUser() {
+        System.out.println("Ingrese el nombre o número de documento del usuario a buscar: ");
+        String searchValue = scanner.nextLine();
+
+        User user = libraryController.searchUser(searchValue);
+
         if (user != null) {
-            System.out.println("Usuario encontrado: " + user.getName());
+            System.out.println("Usuario encontrado: " + user.getName() + " (Documento: " + user.getDocumentType() + ": " + user.getDocumentNumber() + ")");
         } else {
             System.out.println("Usuario no encontrado.");
         }
+    }
+
+    private static void loanBook() {
+        System.out.println("Ingrese el ID del libro a prestar: ");
+        String bookId = scanner.nextLine();
+
+        System.out.println("Ingrese el ID del usuario que solicita el préstamo: ");
+        String userId = scanner.nextLine();
+
+        libraryController.loanBook(bookId, userId);
+    }
+
+    private static void returnBook() {
+        System.out.println("Ingrese el ID del libro a devolver: ");
+        String bookId = scanner.nextLine();
+
+        System.out.println("Ingrese el ID del usuario que devuelve el libro: ");
+        String userId = scanner.nextLine();
+
+        libraryController.returnBook(bookId, userId);
+    }
+
+    private static void listUserLoans() {
+        System.out.println("Ingrese el ID del usuario: ");
+        String userId = scanner.nextLine();
+
+        libraryController.listUserLoans(userId);
     }
 }

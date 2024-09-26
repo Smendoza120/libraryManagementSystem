@@ -3,6 +3,9 @@ package structures;
 import models.User;
 import org.w3c.dom.Node;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LinkedList {
     private Node head;
 
@@ -39,6 +42,45 @@ public class LinkedList {
             }
             temp = temp.next;
         }
+        return null;
+    }
+
+    public User findByName(String name) {
+        Node temp = head;
+
+        while (temp != null) {
+            if (temp.user.getName().equalsIgnoreCase(name)) {
+                return temp.user;
+            }
+            temp = temp.next;
+        }
+
+        return null;
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        Node temp = head;
+
+        while (temp != null) {
+            users.add(temp.user);
+            temp = temp.next;
+        }
+
+        return users;
+    }
+
+    public User findByDocumentNumber(String documentNumber) {
+        Node temp = head;
+
+        while (temp != null) {
+
+            if (temp.user.getDocumentNumber().equals(documentNumber)) {
+                return temp.user;
+            }
+            temp = temp.next;
+        }
+
         return null;
     }
 }

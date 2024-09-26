@@ -23,29 +23,18 @@ public class BookService {
         return bookTree.findById(id);
     }
 
-    public List<Book> searchBooks(String title, String author, String genre) {
+    public List<Book> searchBooks(String query) {
         List<Book> matchingBooks = new ArrayList<>();
 
-        if (title == null) title = "";
-        if (author == null) author = "";
-        if (genre == null) genre = "";
-
         for (Book book : bookTree.getAllBooks()) {
-            boolean matches = true; // Suponemos que coincide hasta que se demuestre lo contrario
+            boolean matchesTitle = book.getTitle().equalsIgnoreCase(query);
+            boolean matchesAuthor = book.getAuthor().equalsIgnoreCase(query);
+            boolean matchesGenre = book.getGenre().equalsIgnoreCase(query);
 
-            if (!title.isEmpty() && !book.getTitle().equalsIgnoreCase(title)) {
-                matches = false; // No coincide en el título
-            }
-            if (!author.isEmpty() && !book.getAuthor().equalsIgnoreCase(author)) {
-                matches = false; // No coincide en el autor
-            }
-            if (!genre.isEmpty() && !book.getGenre().equalsIgnoreCase(genre)) {
-                matches = false; // No coincide en el género
+            if(matchesTitle || matchesAuthor || matchesGenre){
+                matchingBooks.add(book);
             }
 
-            if (matches) {
-                matchingBooks.add(book); // Agregamos el libro que coincide
-            }
         }
 
         return matchingBooks;
