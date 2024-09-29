@@ -41,7 +41,5 @@ public class UserService {
     private String generateUserId() {
         return "U" + (userCounter++);
     }
-
-
 }
 

@@ -6,6 +6,7 @@ import services.BookService;
 import services.LoanService;
 import services.UserService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class LibraryController {
@@ -14,9 +15,9 @@ public class LibraryController {
     private LoanService loanService;
 
     public LibraryController() {
-        this.bookService = new BookService();
         this.userService = new UserService();
-        this.loanService = new LoanService();
+        this.bookService = new BookService();
+        this.loanService = new LoanService(userService, bookService);
     }
 
     //Library section
@@ -54,12 +55,15 @@ public class LibraryController {
     }
 
     //Loan Section
-    public void loanBook(String bookId, String userId) {
-        Book book = bookService.findBookById(bookId);
-        User user = userService.findUserById(userId);
+    public void loanBook(String userQuery, String bookQuery) {
+        User user = userService.findUserByNameOrDocument(userQuery);
+        Book book = bookService.findBookByQuery(bookQuery);
 
         if (book != null && user != null) {
-            loanService.addLoan(book, user);
+            LocalDate loanDate = LocalDate.now();
+            LocalDate returnDate = loanDate.plusWeeks(2);
+
+            loanService.addLoan(user, book, loanDate, returnDate);
         } else {
             System.out.println("Libro o usuario no encontrado.");
         }

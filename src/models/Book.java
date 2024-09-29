@@ -48,6 +48,4 @@ public class Book {
         this.currentLoan = loan;
         this.isAvailable = (loan == null);
     }
-
-
 }

@@ -18,21 +18,32 @@ public class LoanService {
         this.bookService = bookService;
     }
 
-    public void addLoan(String userQuery, String bookId) {
-        if (!book.isAvailable()) {
-            System.out.println("El libro ya está prestado.");
-            return false;
+    public void addLoan(String userQuery, String bookQuery, LocalDate loanDate, LocalDate returnDate) {
+        User user = userService.findUserByNameOrDocument(userQuery);
+
+        if(user == null){
+            System.out.println("Usuario no encontrado.");
+            return;
         }
 
-        LocalDate loanDate = LocalDate.now();
-        LocalDate returnDate = loanDate.plusWeeks(2);
-        Loan loan = new Loan(book, user, loanDate, returnDate);
+        Book book = bookService.findBookByQuery(bookQuery);
 
-        book.setCurrentLoan(loan);
-        user.addLoan(loan);
-        loans.add(loan);
+        if(book == null){
+            System.out.println("Libro no encontrado.");
+            return;
+        }
 
-        return true;
+        if(book.isAvailable()){
+            System.out.println("El libro ya está prestado.");
+            return;
+        }
+
+        Loan newLoan = new Loan(book, user, loanDate, returnDate);
+        loanList.add(newLoan);
+
+        book.setCurrentLoan(newLoan);
+
+        System.out.println("Préstamo agregado con éxito para el libro " + book.getTitle() + " a " + user.getName());
     }
 
     public void returnBook(Book book, User user) {

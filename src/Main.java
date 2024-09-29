@@ -2,6 +2,7 @@ import controllers.LibraryController;
 import models.Book;
 import models.User;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.List;
 
@@ -118,6 +119,7 @@ public class Main {
         }
     }
 
+    //USer section
     private static void addUser() {
         System.out.println("Ingrese el nombre del usuario: ");
         String name = scanner.nextLine();
@@ -161,30 +163,34 @@ public class Main {
         }
     }
 
+    //Loan section
     private static void loanBook() {
-        System.out.println("Ingrese el ID del libro a prestar: ");
-        String bookId = scanner.nextLine();
+        System.out.println("Ingrese el nombre o número de documento del usuario: ");
+        String userQuery = scanner.nextLine();
 
-        System.out.println("Ingrese el ID del usuario que solicita el préstamo: ");
-        String userId = scanner.nextLine();
+        System.out.println("Ingrese el título, autor o género del libro a prestar: ");
+        String bookQuery = scanner.nextLine();
 
-        libraryController.loanBook(bookId, userId);
+        LocalDate loanDate = LocalDate.now();
+        LocalDate returnDate = loanDate.plusWeeks(2);
+
+        libraryController.addLoan(userQuery, bookQuery, loanDate, returnDate);
     }
 
     private static void returnBook() {
-        System.out.println("Ingrese el ID del libro a devolver: ");
-        String bookId = scanner.nextLine();
+        System.out.println("Ingrese el nombre o número de documento del usuario que devuelve el libro: ");
+        String userQuery = scanner.nextLine();
 
-        System.out.println("Ingrese el ID del usuario que devuelve el libro: ");
-        String userId = scanner.nextLine();
+        System.out.println("Ingrese el título, autor o género del libro a devolver: ");
+        String bookQuery = scanner.nextLine();
 
-        libraryController.returnBook(bookId, userId);
+        libraryController.returnBook(userQuery, bookQuery);
     }
 
     private static void listUserLoans() {
-        System.out.println("Ingrese el ID del usuario: ");
-        String userId = scanner.nextLine();
+        System.out.println("Ingrese el nombre o número de documento del usuario: ");
+        String userQuery = scanner.nextLine();
 
-        libraryController.listUserLoans(userId);
+        libraryController.listUserLoans(userQuery);
     }
 }
