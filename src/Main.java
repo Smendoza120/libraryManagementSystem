@@ -174,7 +174,7 @@ public class Main {
         LocalDate loanDate = LocalDate.now();
         LocalDate returnDate = loanDate.plusWeeks(2);
 
-        libraryController.addLoan(userQuery, bookQuery, loanDate, returnDate);
+        libraryController.loanBook(userQuery, bookQuery);
     }
 
     private static void returnBook() {
@@ -184,7 +184,7 @@ public class Main {
         System.out.println("Ingrese el título, autor o género del libro a devolver: ");
         String bookQuery = scanner.nextLine();
 
-        libraryController.returnBook(userQuery, bookQuery);
+        libraryController.returnBook(bookQuery, userQuery);
     }
 
     private static void listUserLoans() {

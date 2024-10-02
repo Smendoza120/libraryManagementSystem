@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Book;
+import models.Loan;
 import models.User;
 import services.BookService;
 import services.LoanService;
@@ -69,24 +70,45 @@ public class LibraryController {
         }
     }
 
-    public void returnBook(String bookId, String userId) {
-        Book book = bookService.findBookById(bookId);
-        User user = userService.findUserById(userId);
+    public void returnBook(String bookQuery, String userQuery) {
+        User user = userService.findUserByNameOrDocument(userQuery);
+        if (user == null) {
+            System.out.println("Usuario no encontrado con la búsqueda: " + userQuery);
+        } else {
+            System.out.println("Usuario encontrado: " + user.getName() + " (Documento: " + user.getDocumentNumber() + ")");
+        }
+
+        Book book = bookService.findBookByQuery(bookQuery);
+        if (book == null) {
+            System.out.println("Libro no encontrado con la búsqueda: " + bookQuery);
+        } else {
+            System.out.println("Libro encontrado: " + book.getTitle() + " (Autor: " + book.getAuthor() + ")");
+        }
 
         if (book != null && user != null) {
             loanService.returnBook(book, user);
         } else {
-            System.out.println("Libro o usuario no encontrado.");
+            System.out.println("Libro o usuario no encontrado. No se puede realizar la devolución.");
         }
     }
 
-    public void listUserLoans(String userId) {
-        User user = userService.findUserById(userId);
+    public void listUserLoans(String userQuery) {
+        User user = userService.findUserByNameOrDocument(userQuery);
 
         if (user != null) {
-            loanService.getLoansByUser(user).forEach(loan -> {
-                System.out.println("Libro: " + loan.getBook().getTitle() + ", Fecha de préstamo: " + loan.getLoanDate());
-            });
+            List<Loan> loans = loanService.getLoansByUser(user);
+
+            if (loans.isEmpty()) {
+                System.out.println("No hay libros prestados para el usuario: " + user.getName());
+            } else {
+                System.out.println("--- Libros prestados por " + user.getName() + " ---");
+
+                for (Loan loan : loans) {
+                    System.out.println("Título: " + loan.getBook().getTitle() +
+                            ", Fecha de préstamo: " + loan.getLoanDate() +
+                            ", Fecha de devolución: " + loan.getReturnDate());
+                }
+            }
         } else {
             System.out.println("Usuario no encontrado.");
         }

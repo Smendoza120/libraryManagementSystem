@@ -18,22 +18,18 @@ public class LoanService {
         this.bookService = bookService;
     }
 
-    public void addLoan(String userQuery, String bookQuery, LocalDate loanDate, LocalDate returnDate) {
-        User user = userService.findUserByNameOrDocument(userQuery);
-
-        if(user == null){
+    public void addLoan(User user, Book book, LocalDate loanDate, LocalDate returnDate) {
+        if (user == null) {
             System.out.println("Usuario no encontrado.");
             return;
         }
 
-        Book book = bookService.findBookByQuery(bookQuery);
-
-        if(book == null){
+        if (book == null) {
             System.out.println("Libro no encontrado.");
             return;
         }
 
-        if(book.isAvailable()){
+        if (!book.isAvailable()) {
             System.out.println("El libro ya está prestado.");
             return;
         }
@@ -59,14 +55,22 @@ public class LoanService {
     }
 
     public List<Loan> getLoansByUser(User user) {
-        return user.getActiveLoans();
+        List<Loan> userLoans = new ArrayList<>();
+
+        for (Loan loan : loanList) {
+            if (loan.getUser().equals(user)) {
+                userLoans.add(loan);
+            }
+        }
+
+        return userLoans;
     }
 
     public Loan getLoanByBook(Book book) {
         return book.getCurrentLoan();
     }
 
-    public List<Loan> getAllLoans(){
+    public List<Loan> getAllLoans() {
         return loanList;
     }
 

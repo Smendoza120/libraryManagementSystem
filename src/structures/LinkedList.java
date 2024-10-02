@@ -4,9 +4,10 @@ import models.User;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class LinkedList {
+public class LinkedList implements Iterable<User> {
     private Node head;
 
     private class Node {
@@ -82,5 +83,24 @@ public class LinkedList {
         }
 
         return null;
+    }
+
+    @Override
+    public Iterator<User> iterator() {
+        return new Iterator<User>() {
+            private LinkedList.Node current = head;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public User next() {
+                User user = current.user;
+                current = current.next;
+                return user;
+            }
+        };
     }
 }

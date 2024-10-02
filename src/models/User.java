@@ -18,15 +18,6 @@ public class User {
         this.activeLoans = new ArrayList<>();
     }
 
-
-    /*
-    public User(String name, String documentType, String documentNumber) {
-        this.name = name;
-        this.documentType = documentType;
-        this.documentNumber = documentNumber;
-    }
-    */
-
     public String getId() {
         return id;
     }
