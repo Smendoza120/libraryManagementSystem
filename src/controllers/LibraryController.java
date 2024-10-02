@@ -141,4 +141,8 @@ public class LibraryController {
             }
         }
     }
+
+    public List<Loan> getLoanHistory() {
+        return loanService.getLoanHistory();
+    }
 }

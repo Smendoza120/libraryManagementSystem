@@ -26,7 +26,7 @@ Tipos de almacenamientos de datos
 - [X] Revisar si usamos pilas
 - [X] Revisar si usamos listas
 - [X] Revisar si usamos arreglos
-- [] Revisar si usamos colas
+- [X] Revisar si usamos colas
 
 ## Pruebas
 
@@ -36,24 +36,6 @@ Tipos de almacenamientos de datos
 
 ## Documentacion
 
-- [] Documentar las funciones
+- [] Documentar todas las funciones
 - [] Realizar la documentacion del proyecto para la entrega
-- [] Revisar las colas, pilas, arreglos
-
-Datos para usar
-
-Libro 
-- Torre oscura
-- Stephen King
-- Terror
-- Carrie
-- Stephen King
-- Terror
-
-Usuario
-- Harold
-- CC
-- 1233496433
-- Salome
-- CC
-- 1233496432
+- [X] Revisar las colas, pilas, arreglos

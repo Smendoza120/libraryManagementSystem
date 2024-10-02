@@ -5,13 +5,12 @@ import models.Loan;
 import models.User;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class LoanService {
     // private List<Loan> loanList = new ArrayList<>();
     private Stack<Loan> loanStack = new Stack<>();
+    private Queue<Loan> loanQueue = new LinkedList<>();
     private UserService userService;
     private BookService bookService;
 
@@ -50,6 +49,7 @@ public class LoanService {
         if (loan != null && loan.getUser().equals(user)) {
             book.setCurrentLoan(null);
             user.removeLoan(loan);
+            loanQueue.add(loan);
             System.out.println("Libro devuelto con éxito.");
         } else {
             System.out.println("No se encontró préstamo para este libro por parte de este usuario.");
@@ -73,7 +73,11 @@ public class LoanService {
     }
 
     public List<Loan> getAllLoans() {
-        return loanStack;
+        return new ArrayList<>(loanStack);
+    }
+
+    public List<Loan> getLoanHistory() {
+        return new ArrayList<>(loanQueue);
     }
 
 }

@@ -1,5 +1,6 @@
 import controllers.LibraryController;
 import models.Book;
+import models.Loan;
 import models.User;
 
 import java.time.LocalDate;
@@ -52,6 +53,9 @@ public class Main {
                 case 11:
                     libraryController.listAllLoans();
                     break;
+                case 12:
+                    loanHistory();
+                    break;
                 case 0:
                     running = false;
                     System.out.println("Saliendo del sistema...");
@@ -76,8 +80,25 @@ public class Main {
         System.out.println("9. Devolver un libro");
         System.out.println("10. Listar libros prestados por un usuario");
         System.out.println("11. Listar todos los libros prestados");
+        System.out.println("12. Listar todos los libros devueltos");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
+    }
+
+    private static void loanHistory() {
+        List<Loan> loanHistory = libraryController.getLoanHistory();
+
+        if (loanHistory.isEmpty()) {
+            System.out.println("No hay historial de préstamos.");
+        } else {
+            System.out.println("--- Historial de Préstamos ---");
+            for (Loan loan : loanHistory) {
+                System.out.println("Título: " + loan.getBook().getTitle() +
+                        ", Usuario: " + loan.getUser().getName() +
+                        ", Fecha de préstamo: " + loan.getLoanDate() +
+                        ", Fecha de devolución: " + loan.getReturnDate());
+            }
+        }
     }
 
     private static void showGenres() {
