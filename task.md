@@ -23,10 +23,10 @@ Prestamos
 - [X] Agregar un listado de todos los libros prestados
 
 Tipos de almacenamientos de datos
-- [] Revisar si usamos pilas
-- [] Revisar si usamos listas
+- [X] Revisar si usamos pilas
+- [X] Revisar si usamos listas
+- [X] Revisar si usamos arreglos
 - [] Revisar si usamos colas
-- [] Revisar si usamos arreglos
 
 ## Pruebas
 

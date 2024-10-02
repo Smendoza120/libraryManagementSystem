@@ -23,30 +23,33 @@ public class Main {
                     addBook();
                     break;
                 case 2:
-                    findBook();
+                    showGenres();
                     break;
                 case 3:
-                    listAllBooks();
+                    findBook();
                     break;
                 case 4:
-                    addUser();
+                    listAllBooks();
                     break;
                 case 5:
-                    listAllUsers();
+                    addUser();
                     break;
                 case 6:
-                    findUser();
+                    listAllUsers();
                     break;
                 case 7:
-                    loanBook();
+                    findUser();
                     break;
                 case 8:
-                    returnBook();
+                    loanBook();
                     break;
                 case 9:
-                    listUserLoans();
+                    returnBook();
                     break;
                 case 10:
+                    listUserLoans();
+                    break;
+                case 11:
                     libraryController.listAllLoans();
                     break;
                 case 0:
@@ -63,17 +66,23 @@ public class Main {
     private static void showMenu() {
         System.out.println("\n--- Sistema de Gestión de Biblioteca ---");
         System.out.println("1. Agregar libro");
-        System.out.println("2. Buscar libro");
-        System.out.println("3. Listar todos los libros");
-        System.out.println("4. Agregar usuario");
-        System.out.println("5. Listar todos los usuarios");
-        System.out.println("6. Buscar usuario");
-        System.out.println("7. Prestar un libro");
-        System.out.println("8. Devolver un libro");
-        System.out.println("9. Listar libros prestados por un usuario");
-        System.out.println("10. Listar todos los libros prestados");
+        System.out.println("2. Lista de generos");
+        System.out.println("3. Buscar libro");
+        System.out.println("4. Listar todos los libros");
+        System.out.println("5. Agregar usuario");
+        System.out.println("6. Listar todos los usuarios");
+        System.out.println("7. Buscar usuario");
+        System.out.println("8. Prestar un libro");
+        System.out.println("9. Devolver un libro");
+        System.out.println("10. Listar libros prestados por un usuario");
+        System.out.println("11. Listar todos los libros prestados");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
+    }
+
+    private static void showGenres() {
+        System.out.println("\n--- Lista de Géneros Disponibles ---");
+        libraryController.showAvailableGenres();
     }
 
     private static void addBook() {

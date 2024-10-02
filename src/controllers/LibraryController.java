@@ -42,6 +42,18 @@ public class LibraryController {
         return bookService.searchBooks(query);
     }
 
+    public void showAvailableGenres() {
+        List<String> genres = bookService.getAvailableGenres();  // Llama al método que devuelve los géneros
+        if (genres.isEmpty()) {
+            System.out.println("No hay géneros disponibles.");
+        } else {
+            System.out.println("--- Géneros Disponibles ---");
+            for (String genre : genres) {
+                System.out.println(genre);
+            }
+        }
+    }
+
     //User Section
     public void addUser(User user) {
         userService.addUser(user);
