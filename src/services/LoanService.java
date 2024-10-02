@@ -7,9 +7,11 @@ import models.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class LoanService {
-    private List<Loan> loanList = new ArrayList<>();
+    // private List<Loan> loanList = new ArrayList<>();
+    private Stack<Loan> loanStack = new Stack<>();
     private UserService userService;
     private BookService bookService;
 
@@ -35,7 +37,7 @@ public class LoanService {
         }
 
         Loan newLoan = new Loan(book, user, loanDate, returnDate);
-        loanList.add(newLoan);
+        loanStack.add(newLoan);
 
         book.setCurrentLoan(newLoan);
 
@@ -57,7 +59,7 @@ public class LoanService {
     public List<Loan> getLoansByUser(User user) {
         List<Loan> userLoans = new ArrayList<>();
 
-        for (Loan loan : loanList) {
+        for (Loan loan : loanStack) {
             if (loan.getUser().equals(user)) {
                 userLoans.add(loan);
             }
@@ -71,7 +73,7 @@ public class LoanService {
     }
 
     public List<Loan> getAllLoans() {
-        return loanList;
+        return loanStack;
     }
 
 }
