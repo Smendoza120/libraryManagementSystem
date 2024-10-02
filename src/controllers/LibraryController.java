@@ -113,4 +113,20 @@ public class LibraryController {
             System.out.println("Usuario no encontrado.");
         }
     }
+
+    public void listAllLoans() {
+        List<Loan> allLoans = loanService.getAllLoans();
+
+        if (allLoans.isEmpty()) {
+            System.out.println("No hay libros prestados.");
+        } else {
+            System.out.println("--- Lista de libros prestados ---");
+            for (Loan loan : allLoans) {
+                System.out.println("Título: " + loan.getBook().getTitle() +
+                        ", Prestado a: " + loan.getUser().getName() +
+                        ", Fecha de préstamo: " + loan.getLoanDate() +
+                        ", Fecha de devolución: " + loan.getReturnDate());
+            }
+        }
+    }
 }

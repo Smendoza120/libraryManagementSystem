@@ -46,6 +46,9 @@ public class Main {
                 case 9:
                     listUserLoans();
                     break;
+                case 10:
+                    libraryController.listAllLoans();
+                    break;
                 case 0:
                     running = false;
                     System.out.println("Saliendo del sistema...");
@@ -68,6 +71,7 @@ public class Main {
         System.out.println("7. Prestar un libro");
         System.out.println("8. Devolver un libro");
         System.out.println("9. Listar libros prestados por un usuario");
+        System.out.println("10. Listar todos los libros prestados");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
     }
