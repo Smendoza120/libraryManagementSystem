@@ -68,6 +68,7 @@ public class Main {
     }
 
     private static void showMenu() {
+        System.out.println("\n--- Harold Sanchez desarrollador FullStack 1.233.496.433 ---");
         System.out.println("\n--- Sistema de Gestión de Biblioteca ---");
         System.out.println("1. Agregar libro");
         System.out.println("2. Lista de generos");
