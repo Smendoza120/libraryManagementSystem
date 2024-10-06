@@ -8,10 +8,6 @@ import java.util.ArrayList;
 
 public class BinarySearchTree {
 
-    /*
-    Book book;
-    private Node root;
-    */
     private class Node {
         Book book;
         Node left, right;

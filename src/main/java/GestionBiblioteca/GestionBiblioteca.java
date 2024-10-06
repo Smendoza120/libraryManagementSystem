@@ -1,3 +1,5 @@
+package GestionBiblioteca;
+
 import controllers.LibraryController;
 import models.Book;
 import models.Loan;
@@ -7,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.List;
 
-public class Main {
+public class GestionBiblioteca {
     private static LibraryController libraryController = new LibraryController();
     private static Scanner scanner = new Scanner(System.in);
 
@@ -69,7 +71,7 @@ public class Main {
 
     private static void showMenu() {
         System.out.println("\n--- Harold Sanchez desarrollador FullStack 1.233.496.433 ---");
-        System.out.println("\n--- Sistema de Gestión de Biblioteca ---");
+        System.out.println("--- Sistema de Gestión de Biblioteca ---");
         System.out.println("1. Agregar libro");
         System.out.println("2. Lista de generos");
         System.out.println("3. Buscar libro");
